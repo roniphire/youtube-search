@@ -1,5 +1,5 @@
 <template>
-  <ul class="list-group">
+  <ul class="list-group col-md-4">
     <VideoListItem
       v-for="video in videos"
       :key="video.etag"
@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import VideoListItem from './VideoListItem.vue';
+import VideoListItem from "./VideoListItem.vue";
 export default {
-  name: 'VideoList',
+  name: "VideoList",
 
   props: {
     videos: Array,
@@ -24,7 +24,7 @@ export default {
 
   methods: {
     onSelectVideo(video) {
-      this.$emit('selectVideo', video);
+      this.$emit("selectVideo", video);
     },
   },
 };

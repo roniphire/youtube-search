@@ -1,38 +1,45 @@
 <template>
   <div id="app" class="container">
     <SearchBar @searchChange="onSearchChange"></SearchBar>
-    <VideoList @selectVideo="onSelectVideo" :videos="videos"></VideoList>
+    <div class="row">
+      <VideoDetail :video="selectedVideo"></VideoDetail>
+      <VideoList @selectVideo="onSelectVideo" :videos="videos"></VideoList>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import SearchBar from './components/SearchBar.vue';
-import VideoList from './components/VideoList.vue';
-const API_KEY = 'AIzaSyBzQgSbtgpfzD8PPqFCgZbg-vt31Nu3LyA';
+import axios from "axios";
+import SearchBar from "./components/SearchBar.vue";
+import VideoList from "./components/VideoList.vue";
+import VideoDetail from "./components/VideoDetail.vue";
+
+const API_KEY = "GENERATE";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     SearchBar,
     VideoList,
+    VideoDetail,
   },
 
   data() {
     return {
       videos: [],
+      selectedVideo: null,
     };
   },
 
   methods: {
     onSearchChange(searchTerm) {
       axios
-        .get('https://www.googleapis.com/youtube/v3/search', {
+        .get("https://www.googleapis.com/youtube/v3/search", {
           params: {
             key: API_KEY,
-            type: 'video',
-            part: 'snippet',
+            type: "video",
+            part: "snippet",
             q: searchTerm,
           },
         })
@@ -42,7 +49,7 @@ export default {
     },
 
     onSelectVideo(video) {
-      console.info(video);
+      this.selectedVideo = video;
     },
   },
 };
